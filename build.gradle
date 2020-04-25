@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version 'caf26e0c'
+	id 'fabric-loom' version '692d1bf4'
 	id 'maven-publish'
 }
 
@@ -12,6 +12,7 @@ group = project.maven_group
 
 minecraft {
 	jarMergeOrder = "client_only"
+	obfuscatedNamespace = "client"
 }
 
 repositories {
