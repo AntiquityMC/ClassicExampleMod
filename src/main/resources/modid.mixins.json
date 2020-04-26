@@ -1,12 +1,13 @@
 {
   "required": true,
-  "minVersion": "0.8",
+  "minVersion": "0.7.11",
   "package": "net.fabricmc.example.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-  ],
-  "client": [
-    "ExampleMixin"
+    "DirtyChunkSorterMixin",
+    "DistanceSorterMixin",
+    "InGameHudMixin",
+    "MinecraftAppletMixin"
   ],
   "injectors": {
     "defaultRequire": 1
