@@ -27,7 +27,8 @@
   ],
 
   "depends": {
-    "fabricloader": "*"
+    "fabricloader": "*",
+    "antiquity": "*"
   },
   "suggests": {
     "flamingo": "*"

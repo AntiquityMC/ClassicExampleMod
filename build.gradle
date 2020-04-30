@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '92465faf'
+	id 'fabric-loom' version '01053465'
 	id 'maven-publish'
 }
 
@@ -23,24 +23,17 @@ dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-	mappings loom.fromCommit("Juuxel/PotentialLamp", project.mappings) { spec ->
+	mappings loom.fromCommit("Juuxel/PotentialLamp", "0.30_01c-$project.mappings_build") { spec ->
 		spec.version = "$project.minecraft_version-$project.mappings_build"
 	}
 
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation("net.fabricmc:fabric-loader:${project.loader_version}") {
+		force = true
+	}
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
-	implementation "org.apache.logging.log4j:log4j-api:2.8.1"
-	implementation "org.apache.logging.log4j:log4j-core:2.8.1"
-	implementation "com.google.guava:guava:21.0"
-	implementation "com.google.code.gson:gson:2.8.0"
-	implementation "org.ow2.asm:asm:8.0"
-	implementation "org.ow2.asm:asm-analysis:8.0"
-	implementation "org.ow2.asm:asm-commons:8.0"
-	implementation "org.ow2.asm:asm-tree:8.0"
-	implementation "org.ow2.asm:asm-util:8.0"
-	implementation "commons-io:commons-io:2.5"
+	modImplementation "com.github.Juuxel:AntiquityApi:$project.antiquity_version"
 }
 
 processResources {

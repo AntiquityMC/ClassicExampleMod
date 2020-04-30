@@ -4,10 +4,7 @@
   "package": "net.fabricmc.example.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "DirtyChunkSorterMixin",
-    "DistanceSorterMixin",
-    "InGameHudMixin",
-    "MinecraftAppletMixin"
+    "MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1
