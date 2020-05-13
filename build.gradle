@@ -23,7 +23,7 @@ dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-	mappings loom.fromCommit("Juuxel/PotentialLamp", "0.30_01c-$project.mappings_build") { spec ->
+	mappings loom.fromCommit("AntiquityMC/PotentialLamp", "0.30_01c-$project.mappings_build") { spec ->
 		spec.version = "$project.minecraft_version-$project.mappings_build"
 	}
 
@@ -33,7 +33,7 @@ dependencies {
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
-	modImplementation "com.github.Juuxel:AntiquityApi:$project.antiquity_version"
+	modImplementation "com.github.AntiquityMC:AntiquityApi:$project.antiquity_version"
 }
 
 processResources {
