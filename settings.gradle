@@ -15,7 +15,7 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.id == "fabric-loom" && requested.version?.endsWith("-SNAPSHOT") != true) {
-                useModule("com.github.Juuxel:fabric-loom:${requested.version}")
+                useModule("com.github.AntiquityMC:Loom:${requested.version}")
             }
         }
     }
