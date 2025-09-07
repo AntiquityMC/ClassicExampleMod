@@ -1,12 +1,9 @@
 plugins {
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.12.0-alpha.15'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
-archivesBaseName = project.archives_base_name
+base.archivesName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
@@ -23,6 +20,25 @@ loom {
 }
 
 repositories {
+	// Add repository for PL constants.
+	exclusiveContent {
+		forRepository {
+			ivy {
+				url = 'https://github.com/AntiquityMC/PotentialLamp/releases/download'
+				patternLayout {
+					artifact("[revision]/[artifact].[ext]")
+				}
+				metadataSources {
+					artifact()
+				}
+			}
+		}
+
+		filter {
+			includeGroup 'io.github.antiquitymc.potential-lamp'
+		}
+	}
+
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -34,7 +50,9 @@ dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings loom.layered {
-		it.mappings("https://github.com/AntiquityMC/PotentialLamp/releases/download/${project.pl_mappings}/obfToNamed.jar")
+		it.mappings("https://github.com/AntiquityMC/PotentialLamp/releases/download/${project.pl_mappings}/obfToNamed.jar") {
+			it.containsUnpick()
+		}
 	}
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 }
@@ -43,18 +61,19 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand "version": inputs.properties.version
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
 	// Minecraft 0.30 uses Java 5, but we need Java 8 for Fabric.
-	if (JavaVersion.current().java9Compatible) {
-		it.options.release = 8
-	}
+	it.options.release = 8
 }
 
 java {
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
+
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.
 	// If you remove this line, sources will not be generated.
@@ -63,7 +82,7 @@ java {
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.archivesBaseName}"}
+		rename { "${it}_${archiveBaseName.get()}"}
 	}
 }
 
